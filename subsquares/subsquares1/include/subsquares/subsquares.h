@@ -8,18 +8,18 @@ namespace n4n {
 struct square {
     int row;
     int column;
-    int width;
+    int size;
 };
 
 // --------------- Constants ---------------
 
-constexpr const int min_square_width = 2;
-constexpr const int max_square_width = 8;
-static_assert(min_square_width <= max_square_width);
+constexpr const int min_square_size = 2;
+constexpr const int max_square_size = 8;
+static_assert(min_square_size <= max_square_size);
 
 // --------------- API Prototypes ---------------
 
-bool find_max_subsquare(const int matrix[max_square_width][max_square_width],
+bool find_max_subsquare(const int matrix[max_square_size][max_square_size],
                         square& subsquare_out);
 
 }; // namespace n4n
