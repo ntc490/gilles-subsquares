@@ -27,8 +27,8 @@ bool find_max_subsquare(const int matrix[max_square_size][max_square_size],
     subsquare_out.size = 0;
 
     for (int row = 0; row < max_square_size; row++) {
-        // OPTIMIZATION: Stop checking if we don't have enough rows left for
-        // something bigger than what already found
+        // OPTIMIZATION4: Stop checking if we don't have enough rows
+        // left for something bigger than what we already found
         int max_possible_height = max_square_size - row;
         if (max_possible_height < subsquare_out.size) {
             break;
@@ -40,7 +40,7 @@ bool find_max_subsquare(const int matrix[max_square_size][max_square_size],
 
         for (int column = 0; column < max_square_size; column++) {
             test_square.column = column;
-            // OPTIMIZATION: Send current subsquare size to constrain sizes
+            // OPTIMIZATION3: Send current subsquare size to constrain sizes
             bool found = check_all_possible_squares(
                 matrix, subsquare_out.size, test_square);
             if (found && (test_square.size > subsquare_out.size)) {
@@ -63,14 +63,15 @@ check_all_possible_squares(const int matrix[max_square_size][max_square_size],
                            int min_required_size,
                            square& subsquare_out)
 {
-    // Don't test for smaller subsquares than we've already found, or for
-    // invalid squares
+    // OPTIMIZATION3: Don't test for smaller subsquares than we've
+    // already found, or for invalid squares
     const int min_size = std::max(min_square_size, min_required_size);
 
-    // We're constrained by matrix dimensions
+    // OPTIMIZATION2: We're constrained by matrix dimensions
     const int start_size = std::min(max_square_size - subsquare_out.column,
                                     max_square_size - subsquare_out.row);
 
+    // OPTIMIZATION1: Look for largest size first
     for (int size = start_size; size >= min_size; size--) {
         subsquare_out.size = size;
         if (is_square(matrix, subsquare_out)) {

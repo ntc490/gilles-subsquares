@@ -1,5 +1,6 @@
 #ifndef SUBSQUARES_H__
 #define SUBSQUARES_H__
+// See documentation in cpp file
 
 namespace n4n {
 
