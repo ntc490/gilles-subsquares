@@ -15,6 +15,7 @@ struct square {
 
 constexpr const int min_square_width = 2;
 constexpr const int max_square_width = 8;
+static_assert(min_square_width <= max_square_width);
 
 // --------------- API Prototypes ---------------
 
