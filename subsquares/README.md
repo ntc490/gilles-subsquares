@@ -119,6 +119,9 @@ data. A matrix with no black cells would normally be a worst-case
 scenario for an unoptimized solution, but requires fewer than 'n'
 reads using this code. The time complexity is O(n) for that scenario.
 
+I measured the number of reads for several test cases. The worst case
+required 147 reads for an 8x8 matrix.
+
 
 ### CMake
 
@@ -162,3 +165,76 @@ weren't any simple bugs.
     cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=Yes ..
     make -j8
     run-clang-tidy -header-filter='.*'
+
+
+### Test Results
+
+Here's a report of how many read cycles were made for each test
+case. I created this report by temporarily adding a small set of code
+to the read_matrix() function.
+
+    [==========] Running 10 tests from 10 test suites.
+    [----------] Global test environment set-up.
+    [----------] 1 test from NoSquare
+    [ RUN      ] NoSquare.Basic
+    Cycles: 147                             <=== report for test case
+    [       OK ] NoSquare.Basic (0 ms)
+    [----------] 1 test from NoSquare (0 ms total)
+
+    [----------] 1 test from EmtpySquare
+    [ RUN      ] EmtpySquare.Basic
+    Cycles: 49
+    [       OK ] EmtpySquare.Basic (0 ms)
+    [----------] 1 test from EmtpySquare (0 ms total)
+
+    [----------] 1 test from FullSquare
+    [ RUN      ] FullSquare.Basic
+    Cycles: 30
+    [       OK ] FullSquare.Basic (0 ms)
+    [----------] 1 test from FullSquare (0 ms total)
+
+    [----------] 1 test from EmbeddedSquare
+    [ RUN      ] EmbeddedSquare.Basic
+    Cycles: 30
+    [       OK ] EmbeddedSquare.Basic (0 ms)
+    [----------] 1 test from EmbeddedSquare (0 ms total)
+
+    [----------] 1 test from TopLeftSquare
+    [ RUN      ] TopLeftSquare.Basic
+    Cycles: 101
+    [       OK ] TopLeftSquare.Basic (0 ms)
+    [----------] 1 test from TopLeftSquare (0 ms total)
+
+    [----------] 1 test from TopRightSquare
+    [ RUN      ] TopRightSquare.Basic
+    Cycles: 64
+    [       OK ] TopRightSquare.Basic (0 ms)
+    [----------] 1 test from TopRightSquare (0 ms total)
+
+    [----------] 1 test from BottomRightSquare
+    [ RUN      ] BottomRightSquare.Basic
+    Cycles: 38
+    [       OK ] BottomRightSquare.Basic (0 ms)
+    [----------] 1 test from BottomRightSquare (0 ms total)
+
+    [----------] 1 test from BottomLeftSquare
+    [ RUN      ] BottomLeftSquare.Basic
+    Cycles: 133
+    [       OK ] BottomLeftSquare.Basic (0 ms)
+    [----------] 1 test from BottomLeftSquare (0 ms total)
+
+    [----------] 1 test from OptimizedTailSquare
+    [ RUN      ] OptimizedTailSquare.Basic
+    Cycles: 80
+    [       OK ] OptimizedTailSquare.Basic (0 ms)
+    [----------] 1 test from OptimizedTailSquare (0 ms total)
+
+    [----------] 1 test from LotsOfHitsNoSquare
+    [ RUN      ] LotsOfHitsNoSquare.Basic
+    Cycles: 76
+    [       OK ] LotsOfHitsNoSquare.Basic (0 ms)
+    [----------] 1 test from LotsOfHitsNoSquare (0 ms total)
+
+    [----------] Global test environment tear-down
+    [==========] 10 tests from 10 test suites ran. (1 ms total)
+    [  PASSED  ] 10 tests.

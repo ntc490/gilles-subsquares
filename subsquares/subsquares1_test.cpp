@@ -214,3 +214,25 @@ TEST(OptimizedTailSquare, Basic)
     EXPECT_EQ(result.column, 2);
     EXPECT_EQ(result.size, 3);
 }
+
+TEST(LotsOfHitsNoSquare, Basic)
+{
+    // clang-format off
+    int matrix[max_square_size][max_square_size] = {
+        { 1, 0, 1, 0, 1, 0, 0, 1 },
+        { 1, 0, 1, 0, 1, 0, 1, 1 },
+        { 1, 0, 1, 0, 1, 0, 0, 1 },
+        { 1, 0, 1, 0, 1, 0, 1, 1 },
+        { 1, 0, 1, 0, 1, 0, 0, 1 },
+        { 1, 0, 1, 0, 1, 0, 1, 1 },
+        { 1, 0, 1, 0, 1, 0, 0, 1 },
+        { 1, 0, 1, 0, 1, 0, 1, 1 },
+    };
+    // clang-format on
+
+    square result;
+    auto found = find_max_subsquare(matrix, result);
+
+    EXPECT_EQ(found, false);
+    EXPECT_EQ(result.size, 0);
+}
