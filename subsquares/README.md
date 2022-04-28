@@ -171,7 +171,7 @@ weren't any simple bugs.
 
 Here's a report of how many read cycles were made for each test
 case. I created this report by temporarily adding a small set of code
-to the read_matrix() function.
+to the read_matrix() function. These tests are for an 8x8 matrix.
 
     [==========] Running 10 tests from 10 test suites.
     [----------] Global test environment set-up.
