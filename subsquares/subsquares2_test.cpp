@@ -302,7 +302,7 @@ TEST(SmallestSquare, FlexibleIface)
     EXPECT_EQ(result.size, 2);
 }
 
-TEST(BiggestSquare, FlexibleIface)
+TEST(BiggerTopLeftSquare, FlexibleIface)
 {
     // clang-format off
     int matrix_data[] = {
@@ -333,4 +333,37 @@ TEST(BiggestSquare, FlexibleIface)
     EXPECT_EQ(result.row, 0);
     EXPECT_EQ(result.column, 0);
     EXPECT_EQ(result.size, 2);
+}
+
+TEST(BiggerSucceededSquare, FlexibleIface)
+{
+    // clang-format off
+    int matrix_data[] = {
+        1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
+    matrix_t matrix = { matrix_data, 16 };
+    // clang-format on
+
+    square result;
+    auto found = find_max_subsquare(matrix, result);
+
+    EXPECT_EQ(found, true);
+    EXPECT_EQ(result.row, 10);
+    EXPECT_EQ(result.column, 8);
+    EXPECT_EQ(result.size, 4);
 }
