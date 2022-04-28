@@ -125,6 +125,8 @@ static bool is_square(const int matrix[max_square_size][max_square_size],
     return true;
 }
 
+// Using this function makes it easy to measure how many reads the
+// library makes.
 static int read_matrix(const int matrix[max_square_size][max_square_size],
                        int row, int column)
 {

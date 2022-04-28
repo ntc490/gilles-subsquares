@@ -121,6 +121,8 @@ static bool is_square(const matrix_t& matrix, const square& s,
     return true;
 }
 
+// Using this function makes it easy to measure how many reads the
+// library makes.
 static int read_matrix(const matrix_t& matrix, int row, int column)
 {
     return matrix.data[column + (row * matrix.size)];
