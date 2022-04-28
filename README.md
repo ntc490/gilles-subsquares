@@ -29,8 +29,8 @@ and a library.
 This project consists of two different library implementations. I felt
 this might demonstrate my ability to contrast and compare different
 ways to solve a problem. It seemed like my interviewer may have felt
-my approach was unconventional. I include more detail in the next
-section.
+my approach to flatten the array, as shown in subsquares2, was less
+common. I include more detail in the next section.
 
 
 ### Dealing with multi-dimensional arrays
@@ -57,8 +57,8 @@ flatten out the matrix using an approach as shown below.
 The resultant machine code for reading cells in the array performs
 similarly in both cases. The width of each row is either hardcoded in
 the function signature or provided in the 'matrix_size' variable. The
-compiler generates very similar code for each function. The second
-implementation allows the author to write a single function to handle
+compiler generates very similar code for each implementation. The
+second model allows the author to write a single function to handle
 many different matrix sizes. The first approach requires a separate
 function definition for each matrix size.
 
@@ -101,13 +101,14 @@ When talking about the time complexity of the subsquare finding
 algorithm, my interviewer and I seemed to be on slightly different
 pages initially. I initially was thinking through a solution I hoped
 could be O(n) by using an algorithm that used a lot of memory. Somehow
-we decided that 'n' was the width/height of the array and that's why
-it was O(n).
+we decided that 'n' was the width/height of the array and multiplying
+them together to get the total number of cells is why the algorithm
+was O(n).
 
-After thinking about it more, though, the algorithm is O(n) because
+After thinking about it more, though, the algorithm is O(n^2) because
 the naive implementation iterates through each cell at a top-most
-level, and then at each cell, it reads through the array to detect
-every potential size of a square that could exist at that
+level, and then at each position it must read through the array to
+detect every potential size of a square that could exist at that
 location. While we don't read every cell to identify a single
 subsquare, the total number of cells to check for all subsquare sizes
 is approximately 'n' cells. Thus we read 'n' cells while anchoring
@@ -120,7 +121,8 @@ scenario for an unoptimized solution, but requires fewer than 'n'
 reads using this code. The time complexity is O(n) for that scenario.
 
 I measured the number of reads for several test cases. The worst case
-required 147 reads for an 8x8 matrix.
+required 147 reads for an 8x8 matrix. See the [Test
+Results](#Test-Results) section below.
 
 
 ### CMake
