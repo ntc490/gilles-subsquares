@@ -9,3 +9,7 @@ endif()
 add_executable(subsquares main.cpp)
 add_subdirectory(subsquares1)
 target_link_libraries(subsquares subsquares1)
+
+add_executable(main2 main2.cpp)
+add_subdirectory(subsquares2)
+target_link_libraries(main2 subsquares2)
