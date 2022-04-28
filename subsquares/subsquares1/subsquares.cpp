@@ -80,7 +80,10 @@ check_all_possible_squares(const int matrix[max_square_size][max_square_size],
         if (is_square(matrix, subsquare_out, longest_side)) {
             return true;
         }
-        size = longest_side;
+        // OPTIMIZATION5
+        if (longest_side < size) {
+            size = longest_side + 1;
+        }
     }
     return false;
 }

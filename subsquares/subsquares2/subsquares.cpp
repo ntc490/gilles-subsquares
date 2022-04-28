@@ -76,7 +76,10 @@ static bool check_all_possible_squares(const matrix_t& matrix,
         if (is_square(matrix, subsquare_out, longest_side)) {
             return true;
         }
-        size = longest_side;
+        // OPTIMIZATION5
+        if (longest_side < size) {
+            size = longest_side + 1;
+        }
     }
     return false;
 }
