@@ -10,7 +10,9 @@ check_all_possible_squares(const int matrix[max_square_size][max_square_size],
                            int min_required_size,
                            square& subsquare_out);
 static bool is_square(const int matrix[max_square_size][max_square_size],
-                      const square& s);
+                      const square& s, int& longest_side);
+static int read_matrix(const int matrix[max_square_size][max_square_size],
+                       int row, int column);
 
 // --------------- API Functions ---------------
 
@@ -41,8 +43,8 @@ bool find_max_subsquare(const int matrix[max_square_size][max_square_size],
         for (int column = 0; column < max_square_size; column++) {
             test_square.column = column;
             // OPTIMIZATION3: Send current subsquare size to constrain sizes
-            bool found = check_all_possible_squares(
-                matrix, subsquare_out.size, test_square);
+            bool found = check_all_possible_squares(matrix, subsquare_out.size,
+                                                    test_square);
             if (found && (test_square.size > subsquare_out.size)) {
                 subsquare_out = test_square;
             }
@@ -72,11 +74,13 @@ check_all_possible_squares(const int matrix[max_square_size][max_square_size],
                                     max_square_size - subsquare_out.row);
 
     // OPTIMIZATION1: Look for largest size first
+    int longest_side;
     for (int size = start_size; size >= min_size; size--) {
         subsquare_out.size = size;
-        if (is_square(matrix, subsquare_out)) {
+        if (is_square(matrix, subsquare_out, longest_side)) {
             return true;
         }
+        size = longest_side;
     }
     return false;
 }
@@ -87,31 +91,41 @@ check_all_possible_squares(const int matrix[max_square_size][max_square_size],
 //
 // Caveat: No bounds test on 'matrix' square size and matrix
 static bool is_square(const int matrix[max_square_size][max_square_size],
-                      const square& s)
+                      const square& s, int& longest_side)
 {
+    longest_side = 0;
+
     // Validate top horizontal line
     for (int i = s.column; i < (s.column + s.size); i++) {
-        if (matrix[s.row][i] != 1) {
+        if (read_matrix(matrix, s.row, i) != 1) {
             return false;
         }
+        // OPTIMIZATION5: Track longest side for future tests
+        longest_side++;
     }
 
     // Validate sides of square - could loop 0 times for smallest squares
     for (int i = s.row + 1; i <= (s.row + s.size - 1); i++) {
-        if ((matrix[i][s.column] != 1) ||
-            (matrix[i][s.column + s.size - 1] != 1)) {
+        if ((read_matrix(matrix, i, s.column) != 1) ||
+            (read_matrix(matrix, i, s.column + s.size - 1) != 1)) {
             return false;
         }
     }
 
     // Validate bottom horizontal line
     for (int i = s.column; i < s.column + s.size; i++) {
-        if (matrix[s.row + s.size - 1][i] != 1) {
+        if (read_matrix(matrix, s.row + s.size - 1, i) != 1) {
             return false;
         }
     }
 
     return true;
+}
+
+static int read_matrix(const int matrix[max_square_size][max_square_size],
+                       int row, int column)
+{
+    return matrix[row][column];
 }
 
 }; // namespace n4n
